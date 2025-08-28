@@ -20,7 +20,7 @@ export function useGameIcon(Icon: Character | Weapon | Echo) {
 
   const MainIcon = computed(() => {
     switch (IconType.value) {
-      case 'character': return GetCharacterIcon(Icon as Character)
+      case 'character': return GetCharacterIcon((Icon as Character).Id)
       case 'weapon': return GetWeaponIcon(Icon as Weapon)
       case 'echo': return GetEchoIcon(Icon as Echo)
       default: return ''

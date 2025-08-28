@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { GetSequenceIcon, GetSplashArt, HasSplashArt } from "~/Core/Utils/CharacterUtils"
+import { GetSequenceIcon, GetSplashArt } from "~/Core/Utils/CharacterUtils";
 
-const CurrentCharacterStore = useCurrentCharacterStore()
+const CurrentCharacterStore = useCurrentCharacterStore();
 
-const { CurrentCharacter } = storeToRefs(CurrentCharacterStore)
+const { CurrentCharacter } = storeToRefs(CurrentCharacterStore);
 </script>
 
 <template>
-  <MCard
-    class="relative overflow-hidden"
-    :border-lines-count="3"
-  >
-    <div class="absolute inset-0 z-20 from-black/25 via-transparent to-transparent bg-gradient-to-bl" />
+  <MCard class="relative overflow-hidden" :border-lines-count="3">
+    <div
+      class="absolute inset-0 z-20 from-black/25 via-transparent to-transparent bg-gradient-to-bl"
+    />
     <!-- <div class="absolute right-2 top-2 z-20 flex items-center gap-2">
       <NuxtImg :src="`${GetCharacterTypeIcon(CurrentCharacter)}`" class="h-8 w-8 object-cover" fit="cover" />
       <NuxtImg :src="`${GetCharacterWeaponTypeIcon(CurrentCharacter)}`" class="h-8 w-8 object-cover" fit="cover" />
@@ -35,7 +34,7 @@ const { CurrentCharacter } = storeToRefs(CurrentCharacterStore)
             class="absolute inset-0 rounded-full bg-gold-400/20 transition-all duration-300"
           />
           <NuxtImg
-            :src="GetSequenceIcon(CurrentCharacter, s)"
+            :src="GetSequenceIcon(CurrentCharacter.Id, index)"
             class="w-full h-full object-cover transition-all duration-200"
             :class="{ 'opacity-30': s.Unlocked === false }"
             :alt="`${CurrentCharacter.Id} - S${index}`"
@@ -44,11 +43,14 @@ const { CurrentCharacter } = storeToRefs(CurrentCharacterStore)
       </div>
     </div>
     <NuxtImg
-      v-if="CurrentCharacter && HasSplashArt(CurrentCharacter)"
-      :src="`${GetSplashArt(CurrentCharacter)}`"
+      v-if="CurrentCharacter"
+      :src="`${GetSplashArt(CurrentCharacter.Id)}`"
       class="absolute inset-0 z-10 h-full w-full object-cover"
       :alt="`${CurrentCharacter.Id} - Splash Art`"
     />
-    <USkeleton v-else class="absolute inset-0 z-10 h-full w-full object-cover" />
+    <USkeleton
+      v-else
+      class="absolute inset-0 z-10 h-full w-full object-cover"
+    />
   </MCard>
 </template>

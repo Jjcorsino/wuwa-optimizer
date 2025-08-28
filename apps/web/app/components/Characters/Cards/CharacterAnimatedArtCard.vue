@@ -1,29 +1,32 @@
 <script setup lang="ts">
-import { useAnimatedArt } from "~/composables/characters/UseAnimatedArt"
-import { GetSequenceIcon, GetSplashArt } from "~/Core/Utils/CharacterUtils"
+import { useAnimatedArt } from "~/composables/characters/UseAnimatedArt";
+import { GetSequenceIcon, GetSplashArt } from "~/Core/Utils/CharacterUtils";
 
-const CanvasRef = ref<HTMLCanvasElement>()
+const CanvasRef = ref<HTMLCanvasElement>();
 
-const CurrentCharacterStore = useCurrentCharacterStore()
+const CurrentCharacterStore = useCurrentCharacterStore();
 
-const { CurrentCharacter } = storeToRefs(CurrentCharacterStore)
+const { CurrentCharacter } = storeToRefs(CurrentCharacterStore);
 
-const { Initialize, LoadSpineModel, IsSpineLoaded } = useAnimatedArt(CurrentCharacter, CanvasRef)
+const { Initialize, LoadSpineModel, IsSpineLoaded } = useAnimatedArt(
+  CurrentCharacter,
+  CanvasRef
+);
 
-const ShowOverlay = ref(true)
+const ShowOverlay = ref(true);
 
 onMounted(() => {
   if (import.meta.server) {
-      return
+    return;
   }
 
   nextTick(() => {
     setTimeout(() => {
-      Initialize()
-      LoadSpineModel()
-    }, 2500)
-  })
-})
+      Initialize();
+      LoadSpineModel();
+    }, 2500);
+  });
+});
 </script>
 
 <template>
@@ -32,7 +35,9 @@ onMounted(() => {
     class="relative overflow-hidden group"
     :border-lines-count="3"
   >
-    <div class="absolute inset-0 z-20 from-black/25 via-transparent to-transparent bg-gradient-to-bl" />
+    <div
+      class="absolute inset-0 z-20 from-black/25 via-transparent to-transparent bg-gradient-to-bl"
+    />
     <div
       v-if="ShowOverlay"
       class="absolute left-4 top-4 z-20 transition-opacity duration-300"
@@ -43,8 +48,10 @@ onMounted(() => {
           :key="`sequence-${index}-${s.Unlocked}`"
           class="relative h-12 w-12 border rounded-full p-1 transition-all duration-200"
           :class="{
-            'border-neutral-600 bg-neutral-800 cursor-pointer hover:scale-110 hover:border-gold-300 hover:bg-gold-800': CurrentCharacterStore.CanUnlockSequence(index),
-            'border-neutral-600 bg-neutral-800 cursor-not-allowed': !CurrentCharacterStore.CanUnlockSequence(index),
+            'border-neutral-600 bg-neutral-800 cursor-pointer hover:scale-110 hover:border-gold-300 hover:bg-gold-800':
+              CurrentCharacterStore.CanUnlockSequence(index),
+            'border-neutral-600 bg-neutral-800 cursor-not-allowed':
+              !CurrentCharacterStore.CanUnlockSequence(index),
           }"
           @click="CurrentCharacterStore.ToggleSequence(index)"
         >
@@ -53,7 +60,7 @@ onMounted(() => {
             class="absolute inset-0 rounded-full bg-black/70 transition-opacity duration-300"
           />
           <NuxtImg
-            :src="GetSequenceIcon(CurrentCharacter, s)"
+            :src="GetSequenceIcon(CurrentCharacter.Id, index + 1)"
             class="w-full h-full object-cover transition-all duration-200"
             :class="{ 'opacity-30': !s.Unlocked }"
             :alt="`${CurrentCharacter.Id} - S${index}`"
@@ -71,7 +78,7 @@ onMounted(() => {
       @click="ShowOverlay = !ShowOverlay"
     />
     <NuxtImg
-      :src="`${GetSplashArt(CurrentCharacter)}`"
+      :src="`${GetSplashArt(CurrentCharacter.Id)}`"
       class="absolute inset-0 z-10 h-full w-full object-cover transition-opacity duration-500"
       :class="{ 'opacity-0': IsSpineLoaded }"
       :alt="`${CurrentCharacter.Id} - Splash Art`"

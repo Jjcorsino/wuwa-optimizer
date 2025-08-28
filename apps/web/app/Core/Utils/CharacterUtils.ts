@@ -5,8 +5,8 @@ import { CharacterType } from "../Enums/CharacterType"
 import { Rarity } from "../Enums/Rarity"
 import { WeaponType } from "../Enums/WeaponType"
 
-export function GetCharacterIcon(character: Character) {
-  return `/characters/${character.Id}/images/${character.Icon}`
+export function GetCharacterIcon(characterId: number) {
+  return `/characters/${characterId}/images/Icon.webp`
 }
 
 export function GetRarityIcon(character: Character) {
@@ -45,11 +45,8 @@ export function GetSequenceLevel(character: Character) {
   return character.Sequences.filter(s => s.Unlocked === true).length ?? 0
 }
 
-// TODO: Use a unified sequence icon path, only based on the character id.
-// We don't need to save a sequence icon, we can just use the index: `Sequence_Node_01.webp` etc.
-export function GetSequenceIcon(character: Character, sequence: Sequence) {
-  // return `/characters/${character.Id}/images/Sequence_Node_${index.toString().padStart(2, "0")}.webp`
-  return `/characters/${character.Id}/images/${sequence.Icon}`
+export function GetSequenceIcon(characterId: number, sequenceIndex: number) {
+  return `/characters/${characterId}/images/${sequenceIndex.toString().padStart(2, "0")}.webp`
 }
 
 export function GetCharacterTypeIcon(character: Character) {
@@ -74,20 +71,12 @@ export function GetCharacterTypeIcon(character: Character) {
 }
 
 // TODO: Use a unified splash art path, only based on the character id.
-export function GetSplashArt(character: Character) {
-  return `/characters/${character.Id}/images/${character.SplashArt.replace(".webp", "")}.webp`
+export function GetSplashArt(characterId: number) {
+  return `/characters/${characterId}/images/SplashArt.webp`
 }
 
-export function HasSplashArt(character: Character) {
-  return character.SplashArt !== undefined
-}
-
-export function GetCharacterBackground(character: Character) {
-  return `/characters/${character.Id}/images/Background.webp`
-}
-
-export function GetCharacterBackgroundFromId(id: number) {
-  return `/characters/${id}/images/Background.webp`
+export function GetCharacterBackground(characterId: number) {
+  return `/characters/${characterId}/images/Background.webp`
 }
 
 export function GetCharacterAnimatedArt(character: Character): AnimatedArt {
@@ -96,7 +85,7 @@ export function GetCharacterAnimatedArt(character: Character): AnimatedArt {
     Atlas: `/characters/${character.Id}/animated/${character.AnimatedArt?.Atlas}`,
     OffsetX: character.AnimatedArt?.OffsetX ?? 0,
     OffsetY: character.AnimatedArt?.OffsetY ?? 0,
-    Scale: character.AnimatedArt?.Scale ?? 1.5,
+    Scale: character.AnimatedArt?.Scale ?? 1,
   }
 }
 

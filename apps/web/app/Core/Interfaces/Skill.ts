@@ -1,11 +1,9 @@
-import type Statistic from './Statistic'
+import type { SkillType } from "../Enums/SkillType"
+import type Statistic from "./Statistic"
 
 export default interface Skill {
+  Type: SkillType
   Level: number
-  Id: string
-  Name?: string
-  Description?: string
-  Icon: string
   Unlocked: boolean
   CanLevelUp?: boolean
   Stat?: Statistic

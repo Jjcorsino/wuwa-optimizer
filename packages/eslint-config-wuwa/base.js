@@ -8,7 +8,7 @@ import tseslint from "typescript-eslint";
  *
  * @type {import("eslint").Linter.Config[]}
  * */
-export const baseConfig = [
+export default [
   js.configs.recommended,
   eslintConfigPrettier,
   ...tseslint.configs.recommended,

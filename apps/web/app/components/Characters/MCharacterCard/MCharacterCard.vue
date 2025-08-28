@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import type Character from '~/Core/Interfaces/Character'
-import { GetCharacterIcon } from '~/Core/Utils/CharacterUtils'
+import type Character from "~/Core/Interfaces/Character";
+import { GetCharacterIcon } from "~/Core/Utils/CharacterUtils";
 
 interface CharacterCardProps {
-  character: Character
+  character: Character;
 }
 
-defineProps<CharacterCardProps>()
+defineProps<CharacterCardProps>();
 
-const { t } = useI18n()
+const { t } = useI18n();
 </script>
 
 <template>
@@ -31,7 +31,7 @@ const { t } = useI18n()
     <template #image>
       <MGameCardImage
         :item="character"
-        :get-image-src="(char: Character) => GetCharacterIcon(char)"
+        :get-image-src="(char: Character) => GetCharacterIcon(char.Id)"
         :get-image-alt="(char: Character) => t(`${char.Id}_name`)"
       />
     </template>

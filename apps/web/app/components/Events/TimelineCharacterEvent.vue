@@ -1,33 +1,33 @@
 <script setup lang="ts">
-import type Character from '~/Core/Interfaces/Character'
-import type Event from '~/Core/Interfaces/Event'
-import type { EventInfo } from '~/stores/EventsStore'
-import { ReleaseState } from '~/Core/Enums/ReleaseState'
-import { GetCharacterIcon, GetSplashArt } from '~/Core/Utils/CharacterUtils'
+import type Character from "~/Core/Interfaces/Character";
+import type Event from "~/Core/Interfaces/Event";
+import type { EventInfo } from "~/stores/EventsStore";
+import { ReleaseState } from "~/Core/Enums/ReleaseState";
+import { GetCharacterIcon, GetSplashArt } from "~/Core/Utils/CharacterUtils";
 
 interface Props {
-  event: EventInfo
+  event: EventInfo;
 }
 
-defineProps<Props>()
-const { t } = useI18n()
+defineProps<Props>();
+const { t } = useI18n();
 
 function FormatDate(date: Date): string {
-  return date.toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-  })
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
 }
 
 function GetRemainingDays(endDate: Date): number {
-  const now = new Date()
-  const timeDiff = endDate.getTime() - now.getTime()
-  return Math.max(0, Math.ceil(timeDiff / (1000 * 3600 * 24)))
+  const now = new Date();
+  const timeDiff = endDate.getTime() - now.getTime();
+  return Math.max(0, Math.ceil(timeDiff / (1000 * 3600 * 24)));
 }
 
 function OnEventClick(event: Event) {
   if (event.ReleaseState === ReleaseState.RELEASED) {
-    navigateTo(`/characters/${event.CharacterId}`)
+    navigateTo(`/characters/${event.CharacterId}`);
   }
 }
 </script>
@@ -39,7 +39,9 @@ function OnEventClick(event: Event) {
       left: `${event.left}px`,
       width: `${event.width}px`,
       top: `${event.top}px`,
-      backgroundImage: event.character ? `linear-gradient(to right, rgb(38 38 38) 20%, rgba(38,38,38,0.8) 30%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0) 100%), url(${GetSplashArt(event.character as Character)})` : 'none',
+      backgroundImage: event.character
+        ? `linear-gradient(to right, rgb(38 38 38) 20%, rgba(38,38,38,0.8) 30%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0) 100%), url(${GetSplashArt(event.character.Id)})`
+        : 'none',
       backgroundSize: 'cover',
       backgroundPosition: 'top',
     }"
@@ -48,13 +50,13 @@ function OnEventClick(event: Event) {
     <div class="flex items-center gap-2 h-full">
       <img
         v-if="event.character"
-        :src="GetCharacterIcon(event.character as Character)"
+        :src="GetCharacterIcon(event.character.Id)"
         :alt="t(`${event.CharacterId}_name`)"
         class="w-auto h-full object-cover rounded-full"
-      >
+      />
       <div class="flex gap-2 items-center w-full">
         <div class="text-sm font-semibold text-neutral-100 truncate">
-          {{ event.character ? t(`${event.CharacterId}_name`) : '' }}
+          {{ event.character ? t(`${event.CharacterId}_name`) : "" }}
         </div>
         <div class="text-xs text-neutral-400">
           {{ FormatDate(event.StartDate) }} - {{ FormatDate(event.EndDate) }}

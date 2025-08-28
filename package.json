@@ -1,5 +1,5 @@
 {
-    "name": "@wuwa-optimizer",
+    "name": "wuwa-optimizer",
     "version": "0.0.0",
     "private": true,
     "scripts": {
@@ -7,7 +7,7 @@
         "dev": "turbo run dev",
         "lint": "turbo run lint",
         "check-types": "turbo run check-types",
-        "clean": "rmdir /s /q node_modules"
+        "clean": "turbo run clean"
     },
     "packageManager": "pnpm@10.14.0",
     "devDependencies": {

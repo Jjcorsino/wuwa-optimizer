@@ -1,28 +1,32 @@
 <script setup lang="ts">
-import { GetCharacterBackgroundFromId } from "~/Core/Utils/CharacterUtils"
+import { GetCharacterBackground } from "~/Core/Utils/CharacterUtils"
 
 const Route = useRoute()
-const Id = computed<number>(() => Number.parseInt((Route.params as { id: string }).id))
+const Id = computed<number>(() =>
+  Number.parseInt((Route.params as { id: string }).id),
+)
 </script>
 
 <template>
-  <div class="[background-size:16px_16px] bg-[radial-gradient(#ffffff12_1px,transparent_1px)] bg-fixed min-h-100vh w-full flex flex-col overflow-hidden">
+  <div
+    class="[background-size:16px_16px] bg-[radial-gradient(#ffffff12_1px,transparent_1px)] bg-fixed min-h-100vh w-full flex flex-col overflow-hidden"
+  >
     <!-- Background -->
     <div class="fixed inset-0 h-full w-full -z-1 scale-120">
-      <div
-        class=" fixed inset-0 h-full w-full bg-neutral-900/65"
-      />
+      <div class="fixed inset-0 h-full w-full bg-neutral-900/65" />
       <NuxtImg
-        :src="GetCharacterBackgroundFromId(Id)"
+        :src="GetCharacterBackground(Id)"
         class="h-full w-full object-cover"
         placeholder="/images/characters-background-placeholder.webp"
         :alt="`${Id} - Background`"
       />
     </div>
 
-    <div class="fixed grid grid-cols-[3.5em_1em_3em_1fr] pointer-events-none grid-rows-[3em_1em_3em_1fr] w-full h-full z-1">
+    <div
+      class="fixed grid grid-cols-[3.5em_1em_3em_1fr] pointer-events-none grid-rows-[3em_1em_3em_1fr] w-full h-full z-1"
+    >
       <div
-        class="w-full h-full z-22 fixed inset-0 pointer-events-none bg-neutral-900 backdrop-blur-md [mask-image:url('/images/main-menu-mask.png')]  [mask-repeat:no-repeat]"
+        class="w-full h-full z-22 fixed inset-0 pointer-events-none bg-neutral-900 backdrop-blur-md [mask-image:url('/images/main-menu-mask.png')] [mask-repeat:no-repeat]"
       />
       <div class="h-full bg-neutral-900 z-22 top-10 fixed inset-0 w-[3.65em]" />
       <div
@@ -31,10 +35,15 @@ const Id = computed<number>(() => Number.parseInt((Route.params as { id: string 
       <div class="h-full bg-gold-700 z-21 top-10 fixed inset-0 left-[3.65em] w-[0.04em]" />
       <div class="w-full bg-gold-700 z-21 fixed inset-0 left-[10em] top-[3em] h-[0.04em]" />
       <!-- Logo -->
-      <div class="col-span-2 z-23 row-span-2 col-start-1 row-star-1 ml-2.5 text-gold-500 hover:text-gray-300 cursor-pointer pointer-events-auto duration-125 transition-all hover:scale-105 mt-2.5 flex w-full h-full">
+      <div
+        class="col-span-2 z-23 row-span-2 col-start-1 row-star-1 ml-2.5 text-gold-500 hover:text-gray-300 cursor-pointer pointer-events-auto duration-125 transition-all hover:scale-105 mt-2.5 flex w-full h-full"
+      >
         <div class="border rounded-full border-gold-500/75 w-12 h-12 justify-center items-center flex">
           <!-- class="motion-safe:animate-pulse" -->
-          <UIcon name="solar:soundwave-bold-duotone" :size="45" />
+          <UIcon
+            name="solar:soundwave-bold-duotone"
+            :size="45"
+          />
         </div>
       </div>
       <!-- Navigation -->
@@ -55,12 +64,14 @@ const Id = computed<number>(() => Number.parseInt((Route.params as { id: string 
     <footer class="w-full bg-neutral-900/90 backdrop-blur-md border-t mt-4 border-neutral-700">
       <div class="ml-[3.5em] px-4 py-2">
         <p class="text-xs text-gray-400 text-center">
-          <span class="font-bold">Wuthering Waves Optimizer</span> is a fan-made project and is not affiliated with nor endorsed by Kuro Games.
+          <span class="font-bold">Wuthering Waves Optimizer</span> is a fan-made
+          project and is not affiliated with nor endorsed by Kuro Games.
         </p>
 
         <p class="text-xs text-gray-400 text-center">
-          Wuthering Waves and other properties are trademarks of their respective owners.
-          All rights reserved by © Guangzhou Kuro Technology Co., Ltd.
+          Wuthering Waves and other properties are trademarks of their
+          respective owners. All rights reserved by © Guangzhou Kuro Technology
+          Co., Ltd.
         </p>
       </div>
     </footer>
