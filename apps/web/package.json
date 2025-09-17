@@ -51,7 +51,7 @@
     "@wuwa-optimizer/eslint-config-wuwa": "workspace:*",
     "@wuwa-optimizer/tsconfig-wuwa": "workspace:*",
     "eslint": "^9.33.0",
-    "nuxt": "^4.0.2",
+    "nuxt": "^4.1.0",
     "nuxt-gtag": "3.0.3",
     "pinia": "^3.0.3",
     "typescript": "^5.9.2",
