@@ -5,6 +5,7 @@ import { ReleaseState } from "./Enums/ReleaseState"
 import { StatType } from "./Enums/StatType"
 import { WeaponType } from "./Enums/WeaponType"
 import { ImportedCharacterSequences, ImportedCharacterSkills } from "./Generated/ImportedCharacterMetadata"
+import { MinorForteSkills } from "./MinorForteSkills"
 
 function CreateBaseStats(hp: number, attack: number, def: number, elementalDamageType: StatType) {
   return [
@@ -121,8 +122,10 @@ function GetBasicAttackIconByWeaponType(weaponType: WeaponType) {
 // Some of the newest characters still don't have full skill metadata in the repo,
 // but we can still expose their actual skill/forte/sequence art in the UI.
 function CreateMinimalBaseSkillsFromName(id: number, name: string, weaponType: WeaponType) {
+  const minorForte = (MinorForteSkills[id] ?? []).map(skill => ({ ...skill }))
+
   if (ImportedCharacterSkills[id]) {
-    return ImportedCharacterSkills[id].map(skill => ({ ...skill }))
+    return [...ImportedCharacterSkills[id].map(skill => ({ ...skill })), ...minorForte]
   }
 
   return [
@@ -174,6 +177,7 @@ function CreateMinimalBaseSkillsFromName(id: number, name: string, weaponType: W
       Icon: `${name}_Resonance_Skill.webp`,
       Unlocked: true,
     },
+    ...minorForte,
   ]
 }
 

@@ -24,6 +24,11 @@ const TabItems = [{
   icon: "i-carbon-scan",
   disabled: false,
   slot: "scanner" as const,
+}, {
+  label: "WuWa Inventory Kamera",
+  icon: "i-carbon-camera",
+  disabled: false,
+  slot: "kamera" as const,
 }]
 </script>
 
@@ -46,6 +51,9 @@ const TabItems = [{
         </template>
         <template #scanner>
           <LazyScannerImporterTab v-if="SelectedTab === '1'" />
+        </template>
+        <template #kamera>
+          <LazyKameraImporterTab v-if="SelectedTab === '2'" />
         </template>
       </UTabs>
       <template #fallback>

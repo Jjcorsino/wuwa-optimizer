@@ -1,0 +1,3 @@
+[submodule "tools/scanner"]
+	path = tools/scanner
+	url = https://github.com/Psycho-Marcus/WuWa_Inventory_Kamera.git

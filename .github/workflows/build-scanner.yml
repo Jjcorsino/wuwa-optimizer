@@ -1,0 +1,91 @@
+name: Build WuWa Inventory Kamera
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/scanner'
+
+jobs:
+  build:
+    name: Build Windows Executable
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~\AppData\Local\pip\Cache
+          key: ${{ runner.os }}-pip-${{ hashFiles('tools/scanner/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        working-directory: tools/scanner
+        run: pip install -r requirements.txt
+
+      - name: Get scanner version
+        id: version
+        working-directory: tools/scanner
+        shell: python
+        run: |
+          import re, os
+          content = open('setup.py').read()
+          match = re.search(r'version\s*=\s*"([^"]+)"', content)
+          version = match.group(1) if match else '1.7.1'
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            f.write(f'version={version}\n')
+
+      - name: Build executable
+        working-directory: tools/scanner
+        run: python setup.py build
+
+      - name: Package release zip
+        working-directory: tools/scanner
+        shell: pwsh
+        run: |
+          $distDir = "dist/v${{ steps.version.outputs.version }}"
+          $zipName = "WuWa-Inventory-Kamera-v${{ steps.version.outputs.version }}-win64.zip"
+          Compress-Archive -Path "$distDir/*" -DestinationPath $zipName -Force
+          echo "zip_name=$zipName" >> $env:GITHUB_OUTPUT
+        id: package
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: scanner-v${{ steps.version.outputs.version }}
+          name: "WuWa Inventory Kamera v${{ steps.version.outputs.version }}"
+          make_latest: false
+          body: |
+            ## WuWa Inventory Kamera v${{ steps.version.outputs.version }}
+
+            Scanner de inventario para Wuthering Waves — integrado con el [WuWa Optimizer](https://github.com/Jjcorsino/wuwa-optimizer).
+
+            ### Cómo usarlo
+            1. Descargá el `.zip` y extraé la carpeta en cualquier ubicación
+            2. Abrí el juego en **pantalla completa** en una de las resoluciones soportadas
+            3. Ejecutá **`WuWa Inventory Kamera.exe`** (requiere permisos de administrador)
+            4. Escaneá tus personajes, echoes y armas
+            5. Volvé al optimizer → **Imports → WuWa Inventory Kamera** y subí los archivos JSON generados
+
+            ### Resoluciones soportadas
+            - 1680×1050
+            - 1920×1080
+            - 2560×1440
+
+            ---
+            > Código fuente del scanner: [Psycho-Marcus/WuWa_Inventory_Kamera](https://github.com/Psycho-Marcus/WuWa_Inventory_Kamera) — Licencia GPL-3.0
+          files: tools/scanner/WuWa-Inventory-Kamera-v${{ steps.version.outputs.version }}-win64.zip
