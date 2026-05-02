@@ -1,5 +1,5 @@
 import type Character from '../Interfaces/Character'
-import type { AnimatedArt } from '../Interfaces/Character'
+import type { AnimatedArt, BaseCharacter } from '../Interfaces/Character'
 import type Sequence from '../Interfaces/Sequence'
 import { CharacterType } from '../Enums/CharacterType'
 import { Rarity } from '../Enums/Rarity'
@@ -78,12 +78,8 @@ export function HasSplashArt(character: Character) {
   return character.SplashArt !== undefined
 }
 
-export function GetCharacterBackground(character: Character) {
-  return `/characters/${character.Id}/images/Background.webp`
-}
-
-export function GetCharacterBackgroundFromId(id: number) {
-  return `/characters/${id}/images/Background.webp`
+export function GetCharacterBackground(character: BaseCharacter) {
+  return `/characters/${character.Id}/images/${character.SplashArt}`
 }
 
 export function GetCharacterAnimatedArt(character: Character): AnimatedArt {

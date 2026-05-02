@@ -135,6 +135,14 @@ function OnTakeScreenShotClicked() {
         />
       </div>
 
+      <!-- Team Compositions Section -->
+      <div class="mt-12">
+        <MSectionTitle title="Team Compositions" color="blue" />
+      </div>
+      <div class="mt-2">
+        <CharacterTeamCompsCard />
+      </div>
+
       <div class="fixed right-4 top-1/3 z-50">
         <div class="bg-black/90 backdrop-blur-md rounded-xl border border-white/20 shadow-xl">
           <div class="p-1.5 flex flex-col space-y-1">

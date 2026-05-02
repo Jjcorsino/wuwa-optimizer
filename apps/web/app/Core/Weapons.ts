@@ -1476,6 +1476,7 @@ export const Weapons: BaseWeapon[] = [
   {
     GameId: 21020106,
     Name: 'Frostburn',
+    ReleaseState: ReleaseState.NEW,
     Type: WeaponType.SWORD,
     Rarity: Rarity.FIVE_STARS,
     Level: 0,

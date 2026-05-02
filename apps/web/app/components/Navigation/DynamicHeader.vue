@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const Route = useRoute()
-const { t } = useI18n()
+const { t, locale, setLocale } = useI18n()
 
 const Routes = computed(() => {
   const pathSegments = Route.path.split('/').filter(p => p !== undefined && p.length !== 0)
@@ -11,7 +11,6 @@ const Routes = computed(() => {
     currentPath += `/${segment}`
 
     if (Number.isInteger(+segment)) {
-      // Means this is a character Id...?
       breadcrumbItems.push({
         label: t(`${segment}_name`),
         to: currentPath,
@@ -28,35 +27,34 @@ const Routes = computed(() => {
   return breadcrumbItems
 })
 
-// const MenuItems = computed(() => [
-//   {
-//     label: 'English',
-//     id: 'en',
-//     icon: 'circle-flags:en',
-//     onSelect() {
-//       setLocale('en')
-//     },
-//   },
-//   // {
-//   //   label: 'Français',
-//   //   id: 'fr',
-//   //   icon: 'circle-flags:fr',
-//   //   onSelect() {
-//   //     setLocale('fr')
-//   //   },
-//   // },
-//   // {
-//   //   label: '日本語',
-//   //   id: 'jp',
-//   //   icon: 'circle-flags:jp',
-//   //   onSelect() {
-//   //     setLocale('jp')
-//   //   },
-//   // },
-// ])
+const MenuItems = computed(() => [
+  {
+    label: 'English',
+    id: 'en',
+    icon: 'circle-flags:us',
+    onSelect() {
+      setLocale('en')
+    },
+  },
+  {
+    label: 'Français',
+    id: 'fr',
+    icon: 'circle-flags:fr',
+    onSelect() {
+      setLocale('fr')
+    },
+  },
+  {
+    label: '日本語',
+    id: 'jp',
+    icon: 'circle-flags:jp',
+    onSelect() {
+      setLocale('jp')
+    },
+  },
+])
 
-// const SelectedMenuItem = computed(() => MenuItems.value.find(x => x.id === locale.value))
-
+const SelectedMenuItem = computed(() => MenuItems.value.find(x => x.id === locale.value))
 </script>
 
 <template>
@@ -66,9 +64,7 @@ const Routes = computed(() => {
     <UBreadcrumb :items="Routes" />
     <div class="flex items-center gap-1">
       <UButton href="https://github.com/" target="_blank" icon="mdi:github" size="xl" variant="link" color="neutral" />
-      <BuyMeACoffee />
-
-      <!-- <UDropdownMenu
+      <UDropdownMenu
         :items="MenuItems"
         arrow
         :modal="false"
@@ -76,8 +72,8 @@ const Routes = computed(() => {
           sideOffset: 8,
         }"
       >
-        <UButton :icon="`${SelectedMenuItem ? SelectedMenuItem.icon : 'mdi:translate'}`" color="neutral" variant="ghost" size="md" />
-      </UDropdownMenu> -->
+        <UButton :icon="SelectedMenuItem ? SelectedMenuItem.icon : 'mdi:translate'" color="neutral" variant="ghost" size="md" />
+      </UDropdownMenu>
     </div>
   </div>
 </template>

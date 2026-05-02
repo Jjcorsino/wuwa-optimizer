@@ -137,5 +137,5 @@ scripts/*
 
 .wrangler
 .turbo
-.claude
-.cocoindex_code
+.claude/
+.cocoindex_code/
