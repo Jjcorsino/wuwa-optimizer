@@ -1,24 +1,29 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'default',
+  layout: "default",
 })
 
 useSeoMeta({
-  title: 'Import Characters - Wuthering Waves Optimizer',
-  description: 'Automatically import your Wuthering Waves characters, weapons and echoes using our OCR scanner. Scan screenshots to instantly load your builds.',
-  keywords: 'WuWa import, Wuthering Waves scanner, OCR import, character scanner, auto import, screenshot scanner',
-  ogTitle: 'Import Characters - Wuthering Waves Optimizer',
-  ogDescription: 'Automatically import your Wuthering Waves characters using our OCR scanner.',
-  ogType: 'website',
+  title: "Import Data - Wuthering Waves Optimizer",
+  description: "Import Wuthering Waves characters, weapons, and echoes from JSON exports or screenshots.",
+  keywords: "WuWa import, Wuthering Waves scanner, OCR import, character scanner, JSON import, screenshot scanner",
+  ogTitle: "Import Data - Wuthering Waves Optimizer",
+  ogDescription: "Import Wuthering Waves characters, weapons, and echoes.",
+  ogType: "website",
 })
 
-const SelectedTab = ref<string>('0')
+const SelectedTab = ref<string>("0")
 
 const TabItems = [{
-  label: 'Wuthering Waves Bot Scanner',
-  icon: 'i-carbon-scan',
+  label: "JSON Import",
+  icon: "i-carbon-json",
   disabled: false,
-  slot: 'scanner' as const,
+  slot: "json" as const,
+}, {
+  label: "Wuthering Waves Bot Scanner",
+  icon: "i-carbon-scan",
+  disabled: false,
+  slot: "scanner" as const,
 }]
 </script>
 
@@ -36,8 +41,11 @@ const TabItems = [{
           indicator: 'rounded-none bg-neutral-300',
         }"
       >
+        <template #json>
+          <LazyJsonImporterTab v-if="SelectedTab === '0'" />
+        </template>
         <template #scanner>
-          <ScannerImporterTab />
+          <LazyScannerImporterTab v-if="SelectedTab === '1'" />
         </template>
       </UTabs>
       <template #fallback>

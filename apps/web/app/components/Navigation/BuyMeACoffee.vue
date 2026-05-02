@@ -3,7 +3,7 @@
 
 <template>
   <UButton
-    href="https://buymeacoffee.com/mikyan"
+    href="https://buymeacoffee.com/"
     target="_blank"
     icon="i-line-md-buy-me-a-coffee-twotone"
     size="sm"

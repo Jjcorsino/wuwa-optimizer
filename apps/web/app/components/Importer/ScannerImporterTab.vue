@@ -100,6 +100,8 @@ async function OnConfirmClicked() {
     ImportedWeapon.value ? WeaponsStore.CreateFromGameId(ImportedWeapon.value.GameId) : undefined,
     ImportedEchoes.value,
   )
+
+  await navigateTo(`/characters/${ImportedCharacter.value.Id}`)
 }
 </script>
 
@@ -174,10 +176,7 @@ async function OnConfirmClicked() {
             color="primary"
             size="lg"
             icon="i-material-symbols:arrow-right-alt-rounded"
-            @click="() => {
-              OnConfirmClicked()
-              navigateTo(`/characters/${ImportedCharacter!.Id}`)
-            }"
+            @click="OnConfirmClicked"
           >
             Go to Character Profile
           </UButton>

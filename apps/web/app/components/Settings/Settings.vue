@@ -6,25 +6,25 @@ const CharactersSettings = computed(() => SettingsStore.Settings.Characters)
 
 function ClearCharactersCache() {
   if (import.meta.client) {
-    localStorage.removeItem('Characters')
+    localStorage.removeItem("Characters")
   }
 }
 
 function ClearWeaponsCache() {
   if (import.meta.client) {
-    localStorage.removeItem('Weapons')
+    localStorage.removeItem("Weapons")
   }
 }
 
 function ClearEchoesCache() {
   if (import.meta.client) {
-    localStorage.removeItem('Echoes')
+    localStorage.removeItem("Echoes")
   }
 }
 
 function ClearBuildsCache() {
   if (import.meta.client) {
-    localStorage.removeItem('Builds')
+    localStorage.removeItem("Builds")
   }
 }
 
@@ -46,7 +46,7 @@ function ClearAllCache() {
           unchecked-icon="i-lucide-x"
           checked-icon="i-lucide-check"
           label="Enable Animations"
-          description="Enable animations for a more dynamic experience."
+          description="Enable UI animations for a more dynamic experience."
         />
       </div>
     </div>

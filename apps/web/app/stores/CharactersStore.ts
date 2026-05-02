@@ -51,6 +51,7 @@ export const useCharactersStore = defineStore('CharactersStore', () => {
         ...character,
         ...data,
       }
+      CachedCharacters.value.delete(characterId)
     }
   }
 
@@ -66,18 +67,14 @@ export const useCharactersStore = defineStore('CharactersStore', () => {
   }
 
   function MergeSequences(partial: PartialCharacter | undefined, base: BaseCharacter): Sequence[] {
-    const sequences = base.BaseSequences
+    return base.BaseSequences.map((baseSequence, index) => {
+      const partialSequence = partial?.Sequences?.[index]
 
-    if (partial?.Sequences) {
-      partial.Sequences.forEach((sequence) => {
-        const baseSequence = sequences.find(s => s.Name === sequence.Name)
-        if (baseSequence) {
-          sequence.Unlocked = sequence.Unlocked ?? baseSequence.Unlocked
-        }
-      })
-    }
-
-    return sequences
+      return {
+        ...baseSequence,
+        Unlocked: partialSequence?.Unlocked ?? baseSequence.Unlocked,
+      }
+    })
   }
 
   function MergeStatsWeights(partial: PartialCharacter | undefined, base: BaseCharacter): Record<string, number> {
@@ -96,19 +93,19 @@ export const useCharactersStore = defineStore('CharactersStore', () => {
   }
 
   function MergeSkills(partial: PartialCharacter | undefined, base: BaseCharacter): Skill[] {
-    const skills = base.BaseSkills
+    return base.BaseSkills.map((baseSkill) => {
+      const partialSkill = partial?.Skills?.find(skill => skill.Id === baseSkill.Id)
 
-    if (partial?.Skills) {
-      partial.Skills.forEach((skill) => {
-        const baseSkill = skills.find(s => s.Id === skill.Id)
-        if (baseSkill) {
-          skill.Level = baseSkill.Level > skill.Level ? baseSkill.Level : skill.Level
-          skill.Unlocked = skill.Unlocked ?? baseSkill.Unlocked
-        }
-      })
-    }
+      if (!partialSkill) {
+        return { ...baseSkill }
+      }
 
-    return skills
+      return {
+        ...baseSkill,
+        Level: partialSkill.Level,
+        Unlocked: partialSkill.Unlocked ?? baseSkill.Unlocked,
+      }
+    })
   }
 
   if (import.meta.hot) {

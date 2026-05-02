@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type Character from '~/Core/Interfaces/Character'
-import type Skill from '~/Core/Interfaces/Skill'
+import type Character from "~/Core/Interfaces/Character"
+import type Skill from "~/Core/Interfaces/Skill"
 
 interface SkillIconProps {
   skill?: Skill
-  size?: 'xs'
+  size?: "xs"
   hasNoLevel?: boolean
   character: Character
 }
@@ -17,29 +17,59 @@ const emit = defineEmits<{
 
 const { t } = useI18n()
 
+function GetSkillLocaleKeySuffix(skill: Skill) {
+  return skill.Id.toLowerCase().replaceAll(" ", "_")
+}
+
+function HumanizeSkillId(skill: Skill) {
+  return skill.Id.replaceAll("_", " ")
+}
+
 const SkillName = computed(() => {
   if (!props.skill) {
-    return 'N/A'
+    return "N/A"
   }
 
-  const translationKey = `${props.character.Id}_${props.skill.Id.toLowerCase().replace(' ', '_')}`
-  return t(translationKey)
+  const translationKey = `${props.character.Id}_${GetSkillLocaleKeySuffix(props.skill)}`
+  const translated = t(translationKey)
+  if (translated !== translationKey) {
+    return translated
+  }
+
+  return props.skill.Name || "N/A"
 })
 
 const SkillType = computed(() => {
   if (!props.skill) {
-    return 'N/A'
+    return "N/A"
   }
 
-  const skillId = props.skill.Id.toLowerCase().replace(' ', '_')
-  return t(`skill_${skillId}`)
+  const skillId = GetSkillLocaleKeySuffix(props.skill)
+  const translated = t(`skill_${skillId}`)
+  return translated === `skill_${skillId}`
+    ? HumanizeSkillId(props.skill)
+    : translated
+})
+
+const SkillDescription = computed(() => {
+  if (!props.skill) {
+    return ""
+  }
+
+  const translationKey = `${props.character.Id}_${GetSkillLocaleKeySuffix(props.skill)}_description`
+  const translated = t(translationKey)
+  if (translated !== translationKey) {
+    return translated
+  }
+
+  return props.skill.Description || ""
 })
 
 const IconPath = computed(() => {
   if (!props.skill)
-    return ''
+    return ""
 
-  if (props.character && !props.skill.Id.startsWith('Basic')) {
+  if (props.character && !props.skill.Id.startsWith("Basic")) {
     return `/characters/${props.character.Id}/images/${props.skill.Icon}`
   }
 
@@ -47,14 +77,14 @@ const IconPath = computed(() => {
 })
 
 const IconClasses = computed(() => {
-  const base = 'rotate-45 cursor-pointer border-1 rounded-xs bg-black backdrop-blur-4 transition-all duration-150'
+  const base = "rotate-45 cursor-pointer border-1 rounded-xs bg-black backdrop-blur-4 transition-all duration-150"
   const border = props.skill?.Unlocked
-    ? 'border-gold-500'
-    : 'border-white/14 hover:border-white/75'
+    ? "border-gold-500"
+    : "border-white/14 hover:border-white/75"
 
-  const size = props.size === 'xs'
-    ? 'min-h-[2.5em] h-[2.5em] min-w-[2.5em] w-[2.5em]'
-    : 'min-h-[4em] h-[4em] min-w-[4em] w-[4em]'
+  const size = props.size === "xs"
+    ? "min-h-[2.5em] h-[2.5em] min-w-[2.5em] w-[2.5em]"
+    : "min-h-[4em] h-[4em] min-w-[4em] w-[4em]"
 
   return `${base} ${border} ${size}`
 })
@@ -67,7 +97,7 @@ function HandleSkillToggle() {
   if (!props.skill)
     return
 
-  emit('skillToggle', props.skill)
+  emit("skillToggle", props.skill)
 }
 </script>
 
@@ -102,7 +132,9 @@ function HandleSkillToggle() {
           </div>
         </div>
 
-        <p>{{ skill.Description }}</p>
+        <p class="whitespace-pre-line">
+          {{ SkillDescription }}
+        </p>
 
         <USlider
           v-if="ShowLevelSlider"

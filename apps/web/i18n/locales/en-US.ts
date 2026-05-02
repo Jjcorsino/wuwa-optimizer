@@ -1,3 +1,5 @@
+import generatedCharacterMetadata from "../generated/character-metadata/en-US"
+
 export default {
   // === Menu ===
   'home_navigation_title': 'Home',
@@ -59,6 +61,9 @@ export default {
   '21010074_name': 'Autumntrace',
   '21010084_name': 'Waning Redshift',
   '21010094_name': 'Meditations On Mercy',
+  '21010105_name': 'Thunderflare Dominion',
+  '21010106_name': 'Kumokiri',
+  '21010107_name': 'Starfield Calibrator',
   '21020011_name': 'Training Sword',
   '21020012_name': 'Tyro Sword',
   '21020013_name': 'Sword Of Night',
@@ -79,6 +84,9 @@ export default {
   '21020074_name': 'Lumingloss',
   '21020084_name': 'Endless Collapse',
   '21020094_name': 'Fables Of Wisdom',
+  '21020105_name': 'Emerald Sentence',
+  '21020106_name': 'Frostburn',
+  '21020107_name': 'Everbright Polestar',
   '21030011_name': 'Training Pistols',
   '21030012_name': 'Tyro Pistols',
   '21030013_name': 'Pistols Of Night',
@@ -95,6 +103,8 @@ export default {
   '21030074_name': 'Thunderbolt',
   '21030084_name': 'Relativistic Jet',
   '21030094_name': 'Romance In Farewell',
+  '21030105_name': 'Lux & Umbra',
+  '21030106_name': 'Spectrum Blaster',
   '21040011_name': 'Training Gauntlets',
   '21040012_name': 'Tyro Gauntlets',
   '21040013_name': 'Gauntlets Of Night',
@@ -112,6 +122,9 @@ export default {
   '21040074_name': 'Stonard',
   '21040084_name': 'Celestial Spiral',
   '21040094_name': 'Legend Of Drunken Hero',
+  '21040105_name': 'Moongazer\'s Sigil',
+  '21040106_name': 'Solsworn Ciphers',
+  '21040107_name': 'Daybreaker\'s Spine',
   '21050011_name': 'Training Rectifier',
   '21050012_name': 'Tyro Rectifier',
   '21050013_name': 'Rectifier Of Night',
@@ -134,6 +147,7 @@ export default {
   '21050074_name': 'Augment',
   '21050084_name': 'Fusion Accretion',
   '21050094_name': 'Waltz In Masquerade',
+  '21050105_name': 'Forged Dwarf Star',
 
   // #endregion
 
@@ -577,6 +591,30 @@ export default {
   // 9905 - Chisa
   '9905_name': 'Chisa',
 
+  // 9906 - Hiyuki
+  '9906_name': 'Hiyuki',
+
+  // 9907 - Denia
+  '9907_name': 'Denia',
+
+  // 9908 - Mornye
+  '9908_name': 'Mornye',
+
+  // 9909 - Aemeath
+  '9909_name': 'Aemeath',
+
+  // 9910 - Buling
+  '9910_name': 'Buling',
+
+  // 9911 - Sigrika
+  '9911_name': 'Sigrika',
+
+  // 9912 - Lynae
+  '9912_name': 'Lynae',
+
+  // 9913 - Luuk Herssen
+  '9913_name': 'Luuk Herssen',
+
   // #endregion
 
   // #region === Echoes === (Generated)
@@ -701,4 +739,6 @@ export default {
   '390077017_name': 'Havoc Prism',
 
   // #endregion
+
+  ...generatedCharacterMetadata,
 }

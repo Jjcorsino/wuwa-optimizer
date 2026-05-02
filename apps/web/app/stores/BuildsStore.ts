@@ -161,7 +161,7 @@ export const useBuildsStore = defineStore('BuildsStore', () => {
   }
 
   function GetScore(build: BuildWithDependencies) {
-    const result = ScoreCalculator.GetBuildScore(build)
+    const result = ScoreCalculator.GetBuildScore(build.Character, build.Weapon, build)
     if (!result)
       return undefined
 
@@ -169,7 +169,7 @@ export const useBuildsStore = defineStore('BuildsStore', () => {
   }
 
   function RecalculateScore(build: BuildWithDependencies) {
-    const result = ScoreCalculator.GetBuildScore(build)
+    const result = ScoreCalculator.GetBuildScore(build.Character, build.Weapon, build)
     if (!result)
       return
 

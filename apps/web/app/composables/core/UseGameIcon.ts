@@ -5,8 +5,24 @@ import { GetCharacterIcon, GetCharacterTypeIcon } from '~/Core/Utils/CharacterUt
 import { GetEchoIcon, GetSonataIcon } from '~/Core/Utils/EchoUtils'
 import { GetTypeIcon, GetWeaponIcon } from '~/Core/Utils/WeaponUtils'
 
+const CharacterNameFallbacks: Record<number, string> = {
+  9901: 'Augusta',
+  9902: 'Iuno',
+  9903: 'Galbrena',
+  9904: 'Qiuyuan',
+  9905: 'Chisa',
+  9906: 'Hiyuki',
+  9907: 'Denia',
+  9908: 'Mornye',
+  9909: 'Aemeath',
+  9910: 'Buling',
+  9911: 'Sigrika',
+  9912: 'Lynae',
+  9913: 'Luuk Herssen',
+}
+
 export function useGameIcon(Icon: Character | Weapon | Echo) {
-  const { t } = useI18n()
+  const { t, te } = useI18n()
 
   const IconType = computed(() => {
     if ('SplashArt' in Icon)
@@ -42,10 +58,13 @@ export function useGameIcon(Icon: Character | Weapon | Echo) {
 
   const Name = computed(() => {
     if (IconType.value === 'echo' || IconType.value === 'weapon') {
-      return t(`${(Icon as Echo | Weapon).GameId}_name`)
+      const key = `${(Icon as Echo | Weapon).GameId}_name`
+      return te(key) ? t(key) : key
     }
 
-    return t(`${(Icon as Character).Id}_name`)
+    const characterId = (Icon as Character).Id
+    const key = `${characterId}_name`
+    return te(key) ? t(key) : CharacterNameFallbacks[characterId] ?? key
   })
 
   const CharacterInfo = computed(() => {

@@ -1,7 +1,7 @@
-export const AppName = 'WuWa Optimizer'
-export const AppDescription = 'Wuwa Optimizer by Mikyan'
-export const GameVersion = '2.5'
-export const UpcomingGameVersion = '2.6'
-export const ScorerGameVersion = '2.5'
-export const RotationBuilderGameVersion = '2.0'
-export const AppVersion = '0.0.1'
+export const AppName = "WuWa Optimizer"
+export const AppDescription = "Wuwa Optimizer by Julian Corsino - A tool to optimize your WuWa team compositions and strategies."
+export const GameVersion = "3.3"
+export const UpcomingGameVersion = "3.4"
+export const ScorerGameVersion = "3.3"
+export const RotationBuilderGameVersion = "2.0"
+export const AppVersion = "0.0.1"

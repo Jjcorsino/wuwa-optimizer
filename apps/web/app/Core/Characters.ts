@@ -4,6 +4,178 @@ import { Rarity } from "./Enums/Rarity"
 import { ReleaseState } from "./Enums/ReleaseState"
 import { StatType } from "./Enums/StatType"
 import { WeaponType } from "./Enums/WeaponType"
+import { ImportedCharacterSequences, ImportedCharacterSkills } from "./Generated/ImportedCharacterMetadata"
+
+function CreateBaseStats(hp: number, attack: number, def: number, elementalDamageType: StatType) {
+  return [
+    {
+      Value: hp,
+      Type: StatType.HP,
+    },
+    {
+      Value: def,
+      Type: StatType.DEF,
+    },
+    {
+      Value: attack,
+      Type: StatType.ATTACK,
+    },
+    {
+      Value: 5,
+      Type: StatType.CRIT_RATE,
+    },
+    {
+      Value: 150,
+      Type: StatType.CRIT_DMG,
+    },
+    {
+      Value: 100,
+      Type: StatType.ENERGY_REGENERATION,
+    },
+    {
+      Value: 0,
+      Type: StatType.HEALING_BONUS,
+    },
+    {
+      Value: 0,
+      Type: StatType.BASIC_ATTACK_DMG_AMPLIFICATION,
+    },
+    {
+      Value: 0,
+      Type: StatType.HEAVY_ATTACK_DMG_AMPLIFICATION,
+    },
+    {
+      Value: 0,
+      Type: StatType.RESONANCE_SKILL_DMG_AMPLIFICATION,
+    },
+    {
+      Value: 0,
+      Type: StatType.RESONANCE_LIBERATION_DMG_AMPLIFICATION,
+    },
+    {
+      Value: 0,
+      Type: elementalDamageType,
+    },
+  ]
+}
+
+function CreateDefaultStatsWeights(
+  elementalDamageType: StatType,
+  overrides: Partial<Record<StatType, number>> = {},
+) {
+  return {
+    [StatType.NONE]: 0,
+    [StatType.CRIT_DMG]: 1,
+    [StatType.CRIT_RATE]: 1,
+    [StatType.ATTACK]: 0.5,
+    [StatType.ATTACK_PERCENTAGE]: 0.75,
+    [StatType.HP]: 0,
+    [StatType.HP_PERCENTAGE]: 0,
+    [StatType.HEALING_BONUS]: 0,
+    [StatType.DEF]: 0,
+    [StatType.DEF_PERCENTAGE]: 0,
+    [StatType.ENERGY_REGENERATION]: 0.25,
+    [StatType.BASIC_ATTACK_DMG_AMPLIFICATION]: 0.45,
+    [StatType.HEAVY_ATTACK_DMG_AMPLIFICATION]: 0.45,
+    [StatType.RESONANCE_LIBERATION_DMG_AMPLIFICATION]: 0.55,
+    [StatType.RESONANCE_SKILL_DMG_AMPLIFICATION]: 0.45,
+    [StatType.AERO_DMG_BONUS]: elementalDamageType === StatType.AERO_DMG_BONUS ? 1 : 0,
+    [StatType.ELECTRO_DMG_BONUS]: elementalDamageType === StatType.ELECTRO_DMG_BONUS ? 1 : 0,
+    [StatType.FUSION_DMG_BONUS]: elementalDamageType === StatType.FUSION_DMG_BONUS ? 1 : 0,
+    [StatType.GLACIO_DMG_BONUS]: elementalDamageType === StatType.GLACIO_DMG_BONUS ? 1 : 0,
+    [StatType.HAVOC_DMG_BONUS]: elementalDamageType === StatType.HAVOC_DMG_BONUS ? 1 : 0,
+    [StatType.SPECTRO_DMG_BONUS]: elementalDamageType === StatType.SPECTRO_DMG_BONUS ? 1 : 0,
+    ...overrides,
+  }
+}
+
+function CreateBaseSequencesFromName(id: number, name: string) {
+  if (ImportedCharacterSequences[id]) {
+    return ImportedCharacterSequences[id].map(sequence => ({ ...sequence }))
+  }
+
+  return Array.from({ length: 6 }, (_, index) => ({
+    Name: "",
+    Icon: `${name}_Sequence_Node_${String(index + 1).padStart(2, "0")}.webp`,
+    Unlocked: false,
+  }))
+}
+
+function GetBasicAttackIconByWeaponType(weaponType: WeaponType) {
+  switch (weaponType) {
+    case WeaponType.BROADBLADE:
+      return "Skill_Broadblade.webp"
+    case WeaponType.SWORD:
+      return "Skill_Sword.webp"
+    case WeaponType.PISTOLS:
+      return "Skill_Pistols.webp"
+    case WeaponType.GAUNTLETS:
+      return "Skill_Gauntlets.webp"
+    case WeaponType.RECTIFIER:
+      return "Skill_Rectifier.webp"
+    default:
+      return "Skill_Sword.webp"
+  }
+}
+
+// Some of the newest characters still don't have full skill metadata in the repo,
+// but we can still expose their actual skill/forte/sequence art in the UI.
+function CreateMinimalBaseSkillsFromName(id: number, name: string, weaponType: WeaponType) {
+  if (ImportedCharacterSkills[id]) {
+    return ImportedCharacterSkills[id].map(skill => ({ ...skill }))
+  }
+
+  return [
+    {
+      Id: "Basic_Attack",
+      Level: 10,
+      Icon: GetBasicAttackIconByWeaponType(weaponType),
+      Unlocked: true,
+    },
+    {
+      Id: "Forte_Circuit",
+      Level: 10,
+      Icon: `${name}_Forte_Circuit.webp`,
+      Unlocked: true,
+    },
+    {
+      Id: "Inherent_Skill_01",
+      Level: 10,
+      Icon: `${name}_Inherent_Skill_01.webp`,
+      Unlocked: true,
+    },
+    {
+      Id: "Inherent_Skill_02",
+      Level: 10,
+      Icon: `${name}_Inherent_Skill_02.webp`,
+      Unlocked: true,
+    },
+    {
+      Id: "Intro_Skill",
+      Level: 10,
+      Icon: `${name}_Intro_Skill.webp`,
+      Unlocked: true,
+    },
+    {
+      Id: "Outro_Skill",
+      Level: 10,
+      Icon: `${name}_Outro_Skill.webp`,
+      Unlocked: true,
+    },
+    {
+      Id: "Resonance_Liberation",
+      Level: 10,
+      Icon: `${name}_Resonance_Liberation.webp`,
+      Unlocked: true,
+    },
+    {
+      Id: "Resonance_Skill",
+      Level: 10,
+      Icon: `${name}_Resonance_Skill.webp`,
+      Unlocked: true,
+    },
+  ]
+}
 
 // 1102
 export const Sanhua: BaseCharacter = {
@@ -8686,7 +8858,7 @@ export const Cantarella: BaseCharacter = {
 export const Phrolova: BaseCharacter = {
   Id: 1608,
   Rarity: Rarity.FIVE_STARS,
-  ReleaseState: ReleaseState.NEW,
+  ReleaseState: ReleaseState.RELEASED,
   Icon: "Phrolova_Icon.webp",
   SplashArt: "Phrolova_Portrait",
   AnimatedArt: {
@@ -8932,96 +9104,218 @@ export const Phrolova: BaseCharacter = {
 export const Augusta: BaseCharacter = {
   Id: 9901,
   Rarity: Rarity.FIVE_STARS,
-  ReleaseState: ReleaseState.UPCOMING,
+  ReleaseState: ReleaseState.RELEASED,
   Icon: "Augusta_Icon.webp",
   SplashArt: "Augusta_Portrait.webp",
   WeaponType: WeaponType.BROADBLADE,
   Type: CharacterType.ELECTRO,
-  BaseStats: [
-  ],
-  BaseSequences: [
-  ],
-  BaseSkills: [
-
-  ],
-  BaseStatsWeights: {
-  },
+  BaseStats: CreateBaseStats(10300, 462, 1112, StatType.ELECTRO_DMG_BONUS),
+  BaseSequences: CreateBaseSequencesFromName(9901, "Augusta"),
+  BaseSkills: CreateMinimalBaseSkillsFromName(9901, "Augusta", WeaponType.BROADBLADE),
+  BaseStatsWeights: CreateDefaultStatsWeights(StatType.ELECTRO_DMG_BONUS, {
+    [StatType.HEAVY_ATTACK_DMG_AMPLIFICATION]: 0.75,
+  }),
 }
 
 // 9902
 export const Iuno: BaseCharacter = {
   Id: 9902,
   Rarity: Rarity.FIVE_STARS,
-  ReleaseState: ReleaseState.UPCOMING,
+  ReleaseState: ReleaseState.RELEASED,
   Icon: "Iuno_Icon.webp",
   SplashArt: "Iuno_Portrait.webp",
   WeaponType: WeaponType.GAUNTLETS,
   Type: CharacterType.AERO,
-  BaseStats: [
-  ],
-  BaseSequences: [
-  ],
-  BaseSkills: [
-  ],
-  BaseStatsWeights: {
-  },
+  BaseStats: CreateBaseStats(10525, 450, 1124, StatType.AERO_DMG_BONUS),
+  BaseSequences: CreateBaseSequencesFromName(9902, "Iuno"),
+  BaseSkills: CreateMinimalBaseSkillsFromName(9902, "Iuno", WeaponType.GAUNTLETS),
+  BaseStatsWeights: CreateDefaultStatsWeights(StatType.AERO_DMG_BONUS, {
+    [StatType.RESONANCE_LIBERATION_DMG_AMPLIFICATION]: 0.75,
+  }),
 }
 
 // 9903
 export const Galbrena: BaseCharacter = {
   Id: 9903,
   Rarity: Rarity.FIVE_STARS,
-  ReleaseState: ReleaseState.UNKNOWN,
+  ReleaseState: ReleaseState.RELEASED,
   Icon: "Galbrena_Icon.webp",
   SplashArt: "Galbrena_Portrait.webp",
-  WeaponType: WeaponType.GAUNTLETS,
-  Type: CharacterType.NONE,
-  BaseStats: [
-  ],
-  BaseSequences: [
-  ],
-  BaseSkills: [
-  ],
-  BaseStatsWeights: {
-  },
+  WeaponType: WeaponType.PISTOLS,
+  Type: CharacterType.FUSION,
+  BaseStats: CreateBaseStats(10300, 462, 1112, StatType.FUSION_DMG_BONUS),
+  BaseSequences: CreateBaseSequencesFromName(9903, "Galbrena"),
+  BaseSkills: CreateMinimalBaseSkillsFromName(9903, "Galbrena", WeaponType.PISTOLS),
+  BaseStatsWeights: CreateDefaultStatsWeights(StatType.FUSION_DMG_BONUS, {
+    [StatType.HEAVY_ATTACK_DMG_AMPLIFICATION]: 0.7,
+  }),
 }
 
 // 9904
 export const Qiuyuan: BaseCharacter = {
   Id: 9904,
   Rarity: Rarity.FIVE_STARS,
-  ReleaseState: ReleaseState.UNKNOWN,
+  ReleaseState: ReleaseState.RELEASED,
   Icon: "Qiuyuan_Icon.webp",
   SplashArt: "Qiuyuan_Portrait.webp",
-  WeaponType: WeaponType.NONE,
-  Type: CharacterType.NONE,
-  BaseStats: [
-  ],
-  BaseSequences: [
-  ],
-  BaseSkills: [
-  ],
-  BaseStatsWeights: {
-  },
+  WeaponType: WeaponType.SWORD,
+  Type: CharacterType.AERO,
+  BaseStats: CreateBaseStats(12237, 375, 1197, StatType.AERO_DMG_BONUS),
+  BaseSequences: CreateBaseSequencesFromName(9904, "Qiuyuan"),
+  BaseSkills: CreateMinimalBaseSkillsFromName(9904, "Qiuyuan", WeaponType.SWORD),
+  BaseStatsWeights: CreateDefaultStatsWeights(StatType.AERO_DMG_BONUS),
 }
 
 // 9905
 export const Chisa: BaseCharacter = {
   Id: 9905,
   Rarity: Rarity.FIVE_STARS,
-  ReleaseState: ReleaseState.UNKNOWN,
+  ReleaseState: ReleaseState.RELEASED,
   Icon: "Chisa_Icon.webp",
   SplashArt: "Chisa_Portrait.webp",
-  WeaponType: WeaponType.NONE,
-  Type: CharacterType.NONE,
-  BaseStats: [
-  ],
-  BaseSequences: [
-  ],
-  BaseSkills: [
-  ],
-  BaseStatsWeights: {
-  },
+  WeaponType: WeaponType.BROADBLADE,
+  Type: CharacterType.HAVOC,
+  BaseStats: CreateBaseStats(10775, 437, 1136, StatType.HAVOC_DMG_BONUS),
+  BaseSequences: CreateBaseSequencesFromName(9905, "Chisa"),
+  BaseSkills: CreateMinimalBaseSkillsFromName(9905, "Chisa", WeaponType.BROADBLADE),
+  BaseStatsWeights: CreateDefaultStatsWeights(StatType.HAVOC_DMG_BONUS),
+}
+
+// 9906
+export const Hiyuki: BaseCharacter = {
+  Id: 9906,
+  Rarity: Rarity.FIVE_STARS,
+  ReleaseState: ReleaseState.NEW,
+  Icon: "Hiyuki_Icon.webp",
+  SplashArt: "Hiyuki_Portrait.webp",
+  WeaponType: WeaponType.SWORD,
+  Type: CharacterType.GLACIO,
+  BaseStats: CreateBaseStats(10300, 462, 1112, StatType.GLACIO_DMG_BONUS),
+  BaseSequences: CreateBaseSequencesFromName(9906, "Hiyuki"),
+  BaseSkills: CreateMinimalBaseSkillsFromName(9906, "Hiyuki", WeaponType.SWORD),
+  BaseStatsWeights: CreateDefaultStatsWeights(StatType.GLACIO_DMG_BONUS, {
+    [StatType.RESONANCE_LIBERATION_DMG_AMPLIFICATION]: 0.85,
+  }),
+}
+
+// 9907
+export const Denia: BaseCharacter = {
+  Id: 9907,
+  Rarity: Rarity.FIVE_STARS,
+  ReleaseState: ReleaseState.UPCOMING,
+  Icon: "Denia_Icon.webp",
+  SplashArt: "Denia_Portrait.webp",
+  WeaponType: WeaponType.RECTIFIER,
+  Type: CharacterType.FUSION,
+  BaseStats: CreateBaseStats(11025, 425, 1148, StatType.FUSION_DMG_BONUS),
+  BaseSequences: CreateBaseSequencesFromName(9907, "Denia"),
+  BaseSkills: CreateMinimalBaseSkillsFromName(9907, "Denia", WeaponType.RECTIFIER),
+  BaseStatsWeights: CreateDefaultStatsWeights(StatType.FUSION_DMG_BONUS, {
+    [StatType.RESONANCE_LIBERATION_DMG_AMPLIFICATION]: 0.8,
+  }),
+}
+
+// 9908
+export const Mornye: BaseCharacter = {
+  Id: 9908,
+  Rarity: Rarity.FIVE_STARS,
+  ReleaseState: ReleaseState.RELEASED,
+  Icon: "Mornye_Icon.webp",
+  SplashArt: "Mornye_Portrait.webp",
+  WeaponType: WeaponType.BROADBLADE,
+  Type: CharacterType.FUSION,
+  BaseStats: CreateBaseStats(15375, 287, 1356, StatType.FUSION_DMG_BONUS),
+  BaseSequences: CreateBaseSequencesFromName(9908, "Mornye"),
+  BaseSkills: CreateMinimalBaseSkillsFromName(9908, "Mornye", WeaponType.BROADBLADE),
+  BaseStatsWeights: CreateDefaultStatsWeights(StatType.FUSION_DMG_BONUS, {
+    [StatType.ENERGY_REGENERATION]: 0.8,
+    [StatType.HEALING_BONUS]: 0.75,
+    [StatType.DEF_PERCENTAGE]: 0.45,
+  }),
+}
+
+// 9909
+export const Aemeath: BaseCharacter = {
+  Id: 9909,
+  Rarity: Rarity.FIVE_STARS,
+  ReleaseState: ReleaseState.RELEASED,
+  Icon: "Aemeath_Icon.webp",
+  SplashArt: "Aemeath_Portrait.webp",
+  WeaponType: WeaponType.SWORD,
+  Type: CharacterType.FUSION,
+  BaseStats: CreateBaseStats(11025, 425, 1148, StatType.FUSION_DMG_BONUS),
+  BaseSequences: CreateBaseSequencesFromName(9909, "Aemeath"),
+  BaseSkills: CreateMinimalBaseSkillsFromName(9909, "Aemeath", WeaponType.SWORD),
+  BaseStatsWeights: CreateDefaultStatsWeights(StatType.FUSION_DMG_BONUS, {
+    [StatType.RESONANCE_LIBERATION_DMG_AMPLIFICATION]: 0.85,
+  }),
+}
+
+// 9910
+export const Buling: BaseCharacter = {
+  Id: 9910,
+  Rarity: Rarity.FOUR_STARS,
+  ReleaseState: ReleaseState.RELEASED,
+  Icon: "Buling_Icon.webp",
+  SplashArt: "Buling_Portrait.webp",
+  WeaponType: WeaponType.RECTIFIER,
+  Type: CharacterType.ELECTRO,
+  BaseStats: CreateBaseStats(10625, 225, 1258, StatType.ELECTRO_DMG_BONUS),
+  BaseSequences: CreateBaseSequencesFromName(9910, "Buling"),
+  BaseSkills: CreateMinimalBaseSkillsFromName(9910, "Buling", WeaponType.RECTIFIER),
+  BaseStatsWeights: CreateDefaultStatsWeights(StatType.ELECTRO_DMG_BONUS, {
+    [StatType.ENERGY_REGENERATION]: 0.7,
+    [StatType.HEALING_BONUS]: 0.8,
+  }),
+}
+
+// 9911
+export const Sigrika: BaseCharacter = {
+  Id: 9911,
+  Rarity: Rarity.FIVE_STARS,
+  ReleaseState: ReleaseState.RELEASED,
+  Icon: "Sigrika_Icon.webp",
+  SplashArt: "Sigrika_Portrait.webp",
+  WeaponType: WeaponType.GAUNTLETS,
+  Type: CharacterType.AERO,
+  BaseStats: CreateBaseStats(10775, 437, 1136, StatType.AERO_DMG_BONUS),
+  BaseSequences: CreateBaseSequencesFromName(9911, "Sigrika"),
+  BaseSkills: CreateMinimalBaseSkillsFromName(9911, "Sigrika", WeaponType.GAUNTLETS),
+  BaseStatsWeights: CreateDefaultStatsWeights(StatType.AERO_DMG_BONUS),
+}
+
+// 9912
+export const Lynae: BaseCharacter = {
+  Id: 9912,
+  Rarity: Rarity.FIVE_STARS,
+  ReleaseState: ReleaseState.RELEASED,
+  Icon: "Lynae_Icon.webp",
+  SplashArt: "Lynae_Portrait.webp",
+  WeaponType: WeaponType.PISTOLS,
+  Type: CharacterType.SPECTRO,
+  BaseStats: CreateBaseStats(12237, 375, 1197, StatType.SPECTRO_DMG_BONUS),
+  BaseSequences: CreateBaseSequencesFromName(9912, "Lynae"),
+  BaseSkills: CreateMinimalBaseSkillsFromName(9912, "Lynae", WeaponType.PISTOLS),
+  BaseStatsWeights: CreateDefaultStatsWeights(StatType.SPECTRO_DMG_BONUS, {
+    [StatType.BASIC_ATTACK_DMG_AMPLIFICATION]: 0.8,
+  }),
+}
+
+// 9913
+export const Luuk_Herssen: BaseCharacter = {
+  Id: 9913,
+  Rarity: Rarity.FIVE_STARS,
+  ReleaseState: ReleaseState.RELEASED,
+  Icon: "Luuk_Herssen_Icon.webp",
+  SplashArt: "Luuk_Herssen_Portrait.webp",
+  WeaponType: WeaponType.GAUNTLETS,
+  Type: CharacterType.SPECTRO,
+  BaseStats: CreateBaseStats(10300, 462, 1112, StatType.SPECTRO_DMG_BONUS),
+  BaseSequences: CreateBaseSequencesFromName(9913, "Luuk_Herssen"),
+  BaseSkills: CreateMinimalBaseSkillsFromName(9913, "Luuk_Herssen", WeaponType.GAUNTLETS),
+  BaseStatsWeights: CreateDefaultStatsWeights(StatType.SPECTRO_DMG_BONUS, {
+    [StatType.BASIC_ATTACK_DMG_AMPLIFICATION]: 0.8,
+  }),
 }
 
 export const BaseCharacters: BaseCharacter[] = [
@@ -9067,4 +9361,12 @@ export const BaseCharacters: BaseCharacter[] = [
   Galbrena,
   Qiuyuan,
   Chisa,
+  Hiyuki,
+  Denia,
+  Mornye,
+  Aemeath,
+  Buling,
+  Sigrika,
+  Lynae,
+  Luuk_Herssen,
 ]

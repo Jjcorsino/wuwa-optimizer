@@ -1413,6 +1413,186 @@ export const Weapons: BaseWeapon[] = [
       Value: 18.23,
     },
   },
+  {
+    GameId: 21010105,
+    Name: 'Thunderflare Dominion',
+    Type: WeaponType.BROADBLADE,
+    Rarity: Rarity.FIVE_STARS,
+    Level: 0,
+    MainStatistic: {
+      Type: StatType.ATTACK,
+      Value: 675.0,
+    },
+    SecondaryStatistic: {
+      Type: StatType.CRIT_RATE,
+      Value: 12.15,
+    },
+  },
+  {
+    GameId: 21010106,
+    Name: 'Kumokiri',
+    Type: WeaponType.BROADBLADE,
+    Rarity: Rarity.FIVE_STARS,
+    Level: 0,
+    MainStatistic: {
+      Type: StatType.ATTACK,
+      Value: 500.0,
+    },
+    SecondaryStatistic: {
+      Type: StatType.CRIT_RATE,
+      Value: 36.0,
+    },
+  },
+  {
+    GameId: 21010107,
+    Name: 'Starfield Calibrator',
+    Type: WeaponType.BROADBLADE,
+    Rarity: Rarity.FIVE_STARS,
+    Level: 0,
+    MainStatistic: {
+      Type: StatType.ATTACK,
+      Value: 412.5,
+    },
+    SecondaryStatistic: {
+      Type: StatType.ENERGY_REGENERATION,
+      Value: 77.04,
+    },
+  },
+  {
+    GameId: 21020105,
+    Name: 'Emerald Sentence',
+    Type: WeaponType.SWORD,
+    Rarity: Rarity.FIVE_STARS,
+    Level: 0,
+    MainStatistic: {
+      Type: StatType.ATTACK,
+      Value: 587.5,
+    },
+    SecondaryStatistic: {
+      Type: StatType.CRIT_RATE,
+      Value: 24.3,
+    },
+  },
+  {
+    GameId: 21020106,
+    Name: 'Frostburn',
+    Type: WeaponType.SWORD,
+    Rarity: Rarity.FIVE_STARS,
+    Level: 0,
+    MainStatistic: {
+      Type: StatType.ATTACK,
+      Value: 587.5,
+    },
+    SecondaryStatistic: {
+      Type: StatType.CRIT_RATE,
+      Value: 24.3,
+    },
+  },
+  {
+    GameId: 21020107,
+    Name: 'Everbright Polestar',
+    Type: WeaponType.SWORD,
+    Rarity: Rarity.FIVE_STARS,
+    Level: 0,
+    MainStatistic: {
+      Type: StatType.ATTACK,
+      Value: 587.5,
+    },
+    SecondaryStatistic: {
+      Type: StatType.CRIT_RATE,
+      Value: 24.3,
+    },
+  },
+  {
+    GameId: 21030105,
+    Name: 'Lux & Umbra',
+    Type: WeaponType.PISTOLS,
+    Rarity: Rarity.FIVE_STARS,
+    Level: 0,
+    MainStatistic: {
+      Type: StatType.ATTACK,
+      Value: 587.5,
+    },
+    SecondaryStatistic: {
+      Type: StatType.CRIT_DMG,
+      Value: 48.6,
+    },
+  },
+  {
+    GameId: 21030106,
+    Name: 'Spectrum Blaster',
+    Type: WeaponType.PISTOLS,
+    Rarity: Rarity.FIVE_STARS,
+    Level: 0,
+    MainStatistic: {
+      Type: StatType.ATTACK,
+      Value: 587.5,
+    },
+    SecondaryStatistic: {
+      Type: StatType.CRIT_RATE,
+      Value: 24.3,
+    },
+  },
+  {
+    GameId: 21040105,
+    Name: 'Moongazer\'s Sigil',
+    Type: WeaponType.GAUNTLETS,
+    Rarity: Rarity.FIVE_STARS,
+    Level: 0,
+    MainStatistic: {
+      Type: StatType.ATTACK,
+      Value: 500.0,
+    },
+    SecondaryStatistic: {
+      Type: StatType.CRIT_RATE,
+      Value: 36.0,
+    },
+  },
+  {
+    GameId: 21040106,
+    Name: 'Solsworn Ciphers',
+    Type: WeaponType.GAUNTLETS,
+    Rarity: Rarity.FIVE_STARS,
+    Level: 0,
+    MainStatistic: {
+      Type: StatType.ATTACK,
+      Value: 587.5,
+    },
+    SecondaryStatistic: {
+      Type: StatType.CRIT_DMG,
+      Value: 48.6,
+    },
+  },
+  {
+    GameId: 21040107,
+    Name: 'Daybreaker\'s Spine',
+    Type: WeaponType.GAUNTLETS,
+    Rarity: Rarity.FIVE_STARS,
+    Level: 0,
+    MainStatistic: {
+      Type: StatType.ATTACK,
+      Value: 587.5,
+    },
+    SecondaryStatistic: {
+      Type: StatType.CRIT_RATE,
+      Value: 24.3,
+    },
+  },
+  {
+    GameId: 21050105,
+    Name: 'Forged Dwarf Star',
+    Type: WeaponType.RECTIFIER,
+    Rarity: Rarity.FIVE_STARS,
+    Level: 0,
+    MainStatistic: {
+      Type: StatType.ATTACK,
+      Value: 500.0,
+    },
+    SecondaryStatistic: {
+      Type: StatType.CRIT_RATE,
+      Value: 36.0,
+    },
+  },
 ]
 
 export const BaseWeapons: BaseWeapon[] = Weapons

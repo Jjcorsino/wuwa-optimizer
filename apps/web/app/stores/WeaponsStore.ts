@@ -38,6 +38,10 @@ export const useWeaponsStore = defineStore('WeaponsStore', () => {
     Weapons.value[weapon.Id!] = weapon
   }
 
+  function AddOrUpdate(weapon: PartialWeapon) {
+    Weapons.value[weapon.Id!] = weapon
+  }
+
   function UpdateById(weaponId: string, data: Partial<PartialWeapon>) {
     const weapon = GetById(weaponId)
 
@@ -88,6 +92,7 @@ export const useWeaponsStore = defineStore('WeaponsStore', () => {
     GetBaseById,
     GetByGameId,
     Add,
+    AddOrUpdate,
     UpdateById,
     CreateFromGameId,
     DeleteById,

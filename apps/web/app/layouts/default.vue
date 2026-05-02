@@ -1,6 +1,3 @@
-<script setup lang="ts">
-</script>
-
 <template>
   <div
     class="[background-size:16px_16px] bg-fixed min-h-100vh w-full flex flex-col overflow-hidden bg-[radial-gradient(#ffffff12_1px,transparent_1px)]"
@@ -8,33 +5,18 @@
     <!-- Background -->
     <div class="fixed inset-0 h-full w-full -z-1">
       <div
-        class="blur-xs fixed h-full w-full bg-[url(/images/main-bg-light.png)] bg-contain bg-center bg-no-repeat -left-[50%] -top-[50%]"
+        class="fixed h-full w-full bg-[url(/images/main-bg-light.png)] bg-contain bg-center bg-no-repeat -left-[50%] -top-[50%] opacity-40"
       />
-      <div class="absolute h-full w-full -left-[50%] -top-[50%]">
-        <ClientOnly>
-          <video
-            key="particles-video-default"
-            playsinline
-            autoplay
-            loop
-            muted
-            preload="metadata"
-            class="pointer-events-none absolute inset-0 h-full w-full object-cover mix-blend-screen"
-          >
-            <source src="/images/particles.mp4">
-          </video>
-        </ClientOnly>
-      </div>
       <NuxtImg src="/images/main-bg.webp" class="h-full w-full object-cover" />
     </div>
 
     <div class="fixed grid grid-cols-[3.5em_1em_3em_1fr] pointer-events-none grid-rows-[3em_1em_3em_1fr] w-full h-full z-1">
       <div
-        class="w-full h-full z-22 fixed inset-0 pointer-events-none bg-neutral-900 backdrop-blur-md [mask-image:url('/images/main-menu-mask.png')]  [mask-repeat:no-repeat]"
+        class="w-full h-full z-22 fixed inset-0 pointer-events-none bg-neutral-900 [mask-image:url('/images/main-menu-mask.png')]  [mask-repeat:no-repeat]"
       />
       <div class="h-full bg-neutral-900 z-22 top-10 fixed inset-0 w-[3.65em]" />
       <div
-        class="w-full h-full z-21 fixed inset-0 pointer-events-none bg-gold-700 backdrop-blur-md [mask-image:url('/images/main-menu-mask.png')] [mask-position:0.05rem_0.05rem] [mask-repeat:no-repeat]"
+        class="w-full h-full z-21 fixed inset-0 pointer-events-none bg-gold-700 [mask-image:url('/images/main-menu-mask.png')] [mask-position:0.05rem_0.05rem] [mask-repeat:no-repeat]"
       />
       <div class="h-full bg-gold-700 z-21 top-10 fixed inset-0 left-[3.65em] w-[0.04em]" />
       <div class="w-full bg-gold-700 z-21 fixed inset-0 left-[10em] top-[3em] h-[0.04em]" />

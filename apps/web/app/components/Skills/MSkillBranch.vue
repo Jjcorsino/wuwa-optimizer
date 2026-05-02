@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { SkillBranch } from '~/composables/characters/UseSkillTree'
-import type Character from '~/Core/Interfaces/Character'
-import type Skill from '~/Core/Interfaces/Skill'
+import type { SkillBranch } from "~/composables/characters/UseSkillTree"
+import type Character from "~/Core/Interfaces/Character"
+import type Skill from "~/Core/Interfaces/Skill"
 
 interface SkillBranchProps {
   character: Character
@@ -15,7 +15,7 @@ const emit = defineEmits<{
 }>()
 
 function HandleSkillToggle(skill: Skill) {
-  emit('skillToggle', skill, props.branch)
+  emit("skillToggle", skill, props.branch)
 }
 </script>
 
@@ -28,7 +28,7 @@ function HandleSkillToggle(skill: Skill) {
       @skill-toggle="HandleSkillToggle"
     />
 
-    <template v-for="(skill, index) in branch.skills" :key="skill?.Id || index">
+    <template v-for="(skill, index) in branch.skills" :key="skill?.Id ?? index">
       <MSkillIconSeparator :skill="skill" />
       <MSkillBonusIcon
         :skill="skill"

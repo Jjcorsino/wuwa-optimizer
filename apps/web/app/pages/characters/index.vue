@@ -99,15 +99,22 @@ function IsCharacterAvailable(character: BaseCharacter) {
       <RarityFilter @selected="(r: Rarity) => SelectedCharacterRarity = r" />
     </div>
     <div v-if="CharactersList.length > 0" class="flex flex-wrap w-full items-center justify-center gap-2">
-      <MCharacterIcon
-        v-for="(c, idx) in CharactersList"
-        :key="c.Id"
-        v-motion-pop
-        :delay="100 + (idx * 20)"
-        :character="c as Character"
-        :class="{ 'cursor-pointer': IsCharacterAvailable(c) }"
-        @click.prevent="IsCharacterAvailable(c) ? OnCharacterClicked(c.Id) : null"
-      />
+      <template v-for="(c, idx) in CharactersList" :key="c.Id">
+        <MCharacterIcon
+          v-if="idx < 20"
+          v-motion-pop
+          :delay="100 + (idx * 20)"
+          :character="c as Character"
+          :class="{ 'cursor-pointer': IsCharacterAvailable(c) }"
+          @click.prevent="IsCharacterAvailable(c) ? OnCharacterClicked(c.Id) : null"
+        />
+        <MCharacterIcon
+          v-else
+          :character="c as Character"
+          :class="{ 'cursor-pointer': IsCharacterAvailable(c) }"
+          @click.prevent="IsCharacterAvailable(c) ? OnCharacterClicked(c.Id) : null"
+        />
+      </template>
     </div>
   </div>
 </template>

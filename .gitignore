@@ -131,7 +131,9 @@ dist
 
 .data
 
-scripts/
+scripts/*
+!scripts/fetch-character-images.mjs
+!scripts/import-character-metadata.mjs
 
 .wrangler
 .turbo

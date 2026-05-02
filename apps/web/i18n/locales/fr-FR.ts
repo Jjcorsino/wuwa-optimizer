@@ -1,11 +1,21 @@
+import generatedCharacterMetadata from "../generated/character-metadata/fr-FR"
+
 export default {
   'home_navigation_title': 'Accueil',
   'characters_navigation_title': 'Personnages',
   'weapons_navigation_title': 'Armes',
+  'echoes_navigation_title': 'Échos',
   'imports_navigation_title': 'Importer',
+  'exports_navigation_title': 'Exporter',
+  'roadmap_navigation_title': 'Feuille de route',
 
   'label_level': 'Nv.',
+  'label_level_full': 'Niveau',
+  'label_rank': 'R',
+  'label_rank_full': 'Rang',
+  'label_scoring_algorithm': 'Notation',
   'label_character_score': 'Score du personnage',
+  'title_scoring_modal': 'Algorithme de notation & Informations',
 
   'label_stat_hp': 'PV',
   'label_stat_hp_percentage': 'PV %',
@@ -22,6 +32,11 @@ export default {
   'label_stat_resonance_skill_dmg_amplification': 'Bonus DGT Compétence',
   'label_stat_resonance_liberation_dmg_amplification': 'Bonus DGT Libération',
   'label_stat_spectro_dmg_bonus': 'Bonus DGT Spectro',
+  'label_stat_havoc_dmg_bonus': 'Bonus DGT Havoc',
+  'label_stat_glacio_dmg_bonus': 'Bonus DGT Glacio',
+  'label_stat_fusion_dmg_bonus': 'Bonus DGT Fusion',
+  'label_stat_electro_dmg_bonus': 'Bonus DGT Électro',
+  'label_stat_aero_dmg_bonus': 'Bonus DGT Aero',
 
   // === Skills ===
   'skill_basic_attack': 'Attaque Normale',
@@ -30,6 +45,8 @@ export default {
   'skill_forte_circuit': 'Forte Circuit',
   'skill_inherent_skill_1': 'Inherent Skill',
   'skill_inherent_skill_2': 'Inherent Skill',
+  'skill_inherent_skill_01': 'Inherent Skill',
+  'skill_inherent_skill_02': 'Inherent Skill',
   'skill_outro_skill': 'Compétence d\'Outro',
   'skill_intro_skill': 'Compétence d\'Intro',
 
@@ -59,8 +76,8 @@ export default {
   '1304_resonance_skill': 'Trailing Lights of Eons',
   '1304_resonance_liberation': 'Purge of Light',
   '1304_forte_circuit': 'Luminal Synthesis',
-  '1304_inherent_skill_1': 'Radiant Surge',
-  '1304_inherent_skill_2': 'Converged Flash',
+  '1304_inherent_skill_01': 'Radiant Surge',
+  '1304_inherent_skill_02': 'Converged Flash',
   '1304_outro_skill': 'Temporal Bender',
   '1304_intro_skill': 'Loong\'s Halo',
 
@@ -80,8 +97,8 @@ export default {
   '1506_resonance_skill': 'To Where Light Shines',
   '1506_resonance_liberation': 'Dawn of Enlightenment',
   '1506_forte_circuit': 'Radiant Invocation',
-  '1506_inherent_skill_1': 'Presence',
-  '1506_inherent_skill_2': 'Revelation',
+  '1506_inherent_skill_01': 'Presence',
+  '1506_inherent_skill_02': 'Revelation',
   '1506_outro_skill': 'Attentive Heart',
   '1506_intro_skill': 'Golden Grace',
 
@@ -96,10 +113,25 @@ export default {
   '1606_resonance_skill': 'Acrobatic Trick',
   '1606_resonance_liberation': 'Commedia Improvviso!',
   '1606_forte_circuit': 'A Prop Master Prepares',
-  '1606_inherent_skill_1': 'Immersive Performance',
-  '1606_inherent_skill_2': 'Super Attractive Magic Box',
+  '1606_inherent_skill_01': 'Immersive Performance',
+  '1606_inherent_skill_02': 'Super Attractive Magic Box',
   '1606_outro_skill': 'Applause, Please!',
   '1606_intro_skill': 'Pero, Help',
+
+  // Recent characters
+  '9901_name': 'Augusta',
+  '9902_name': 'Iuno',
+  '9903_name': 'Galbrena',
+  '9904_name': 'Qiuyuan',
+  '9905_name': 'Chisa',
+  '9906_name': 'Hiyuki',
+  '9907_name': 'Denia',
+  '9908_name': 'Mornye',
+  '9909_name': 'Aemeath',
+  '9910_name': 'Buling',
+  '9911_name': 'Sigrika',
+  '9912_name': 'Lynae',
+  '9913_name': 'Luuk Herssen',
 
   // === Echoes ===
   '390080005_name': 'Bell-Borne Geochelone',
@@ -175,4 +207,5 @@ export default {
   '390070064_name': 'Fusion Warrior',
   '6000061_name': 'Galescourge Stalker',
   '390077013_name': 'Glacio Prism',
+  ...generatedCharacterMetadata,
 }

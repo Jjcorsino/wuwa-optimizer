@@ -1,3 +1,5 @@
+import generatedCharacterMetadata from "../generated/character-metadata/ja-JP"
+
 export default {
   'home_navigation_title': '',
   'characters_navigation_title': 'キャラクター',
@@ -34,4 +36,19 @@ export default {
   '1506_inherent_skill_2': 'リベレーション',
   '1506_outro_skill': '傾聴の心',
   '1506_intro_skill': 'ゴールデングレース',
+  // Recent characters
+  '9901_name': 'Augusta',
+  '9902_name': 'Iuno',
+  '9903_name': 'Galbrena',
+  '9904_name': 'Qiuyuan',
+  '9905_name': 'Chisa',
+  '9906_name': 'Hiyuki',
+  '9907_name': 'Denia',
+  '9908_name': 'Mornye',
+  '9909_name': 'Aemeath',
+  '9910_name': 'Buling',
+  '9911_name': 'Sigrika',
+  '9912_name': 'Lynae',
+  '9913_name': 'Luuk Herssen',
+  ...generatedCharacterMetadata,
 }

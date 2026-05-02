@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:api.hakush.in)",
+      "WebFetch(domain:ww.hakush.in)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://api.hakush.in/ww/data/character.json)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://ww.hakush.in/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://wutheringwaves.fandom.com/api.php)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://wuthering.gg/characters)",
+      "Bash(curl -sv -o /dev/null https://api.hakush.in/ww/data/character.json)",
+      "Bash(curl -sv -o /dev/null https://ww.hakush.in/)",
+      "Bash(nslookup hakush.in)",
+      "Bash(curl -sI https://hakush.in/ww/character/9906)",
+      "Bash(curl -s https://hakush.in/)",
+      "WebFetch(domain:hakush.in)",
+      "Bash(curl -s --max-time 10 -o /dev/null -w \"main:%{http_code} url:%{url_effective}\\\\n\" -L https://hakush.in/)",
+      "Bash(curl -s --max-time 10 -o /dev/null -w \"ww:%{http_code} url:%{url_effective}\\\\n\" -L https://hakush.in/ww/)",
+      "Bash(curl -s --max-time 10 -o /dev/null -w \"data:%{http_code} url:%{url_effective}\\\\n\" -L https://hakush.in/ww/data/character.json)",
+      "Bash(nslookup hakush.in 8.8.8.8)",
+      "Bash(nslookup api.hakush.in 8.8.8.8)",
+      "Bash(nslookup ww.hakush.in 8.8.8.8)",
+      "WebFetch(domain:wutheringwaves.fandom.com)",
+      "WebFetch(domain:wuthering.gg)",
+      "Bash(node \"c:/Users/ekko-/OneDrive/Desktop/wuwa-optimizer/scripts/fetch-character-images.mjs\" --dry-run --id 9901 --id 9902 --id 9906)",
+      "Bash(node \"c:/Users/ekko-/OneDrive/Desktop/wuwa-optimizer/scripts/fetch-character-images.mjs\" --id 9901 --only icon,portrait)",
+      "Bash(node -e \"fetch\\('https://wutheringwaves.fandom.com/api.php?action=query&list=allimages&aiprefix=Augusta&ailimit=50&format=json'\\).then\\(r=>r.json\\(\\)\\).then\\(j=>console.log\\(JSON.stringify\\(j.query.allimages.map\\(i=>i.name\\),null,2\\)\\)\\)\")",
+      "Bash(node -e \"fetch\\('https://wutheringwaves.fandom.com/api.php?action=query&list=allimages&aiprefix=Phoebe&ailimit=80&format=json'\\).then\\(r=>r.json\\(\\)\\).then\\(j=>console.log\\(JSON.stringify\\(j.query.allimages.map\\(i=>i.name\\).filter\\(n=>n.match\\(/Icon|Sequence|Forte|Skill|Liberation|Portrait|Outro|Intro/\\)\\),null,2\\)\\)\\)\")",
+      "Bash(node \"c:/Users/ekko-/OneDrive/Desktop/wuwa-optimizer/scripts/fetch-character-images.mjs\" --id 9901 --only icon,portrait,liberation,intro,outro)",
+      "Bash(node \"c:/Users/ekko-/OneDrive/Desktop/wuwa-optimizer/scripts/fetch-character-images.mjs\" --id 9901 --only icon,portrait,intro,outro)",
+      "Bash(node \"c:/Users/ekko-/OneDrive/Desktop/wuwa-optimizer/scripts/fetch-character-images.mjs\" --id 9901 --id 9902 --id 9903 --id 9904 --id 9905 --id 9906 --id 9907 --id 9908 --id 9909 --id 9910 --id 9911 --id 9912 --id 9913)",
+      "Bash(tee /tmp/fetch-output.log)",
+      "Bash(node \"c:/Users/ekko-/OneDrive/Desktop/wuwa-optimizer/scripts/fetch-character-images.mjs\" --id 9901 --id 9902 --id 9903 --id 9904 --id 9905 --id 9906 --id 9907 --id 9908 --id 9909 --id 9910 --id 9911 --id 9912 --id 9913 --include-fallback)",
+      "WebFetch(domain:wuwaguide.kurogames.com)",
+      "Bash(curl -s \"https://wuwaguide.kurogames.com/en/?role_id=1410\")",
+      "Bash(curl -s \"https://wuwaguide.kurogames.com/assets/js/main-11d0e602.js\")",
+      "Bash(curl -s \"https://guide-server.aki-game.net/api/role/getRoleList?languageCode=en\" -w \"\\\\nHTTP:%{http_code}\")"
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const Route = useRoute()
-const { t, setLocale } = useI18n()
+const { t } = useI18n()
 
 const Routes = computed(() => {
   const pathSegments = Route.path.split('/').filter(p => p !== undefined && p.length !== 0)
@@ -57,9 +57,6 @@ const Routes = computed(() => {
 
 // const SelectedMenuItem = computed(() => MenuItems.value.find(x => x.id === locale.value))
 
-onMounted(() => {
-  setLocale('en')
-})
 </script>
 
 <template>
@@ -68,7 +65,7 @@ onMounted(() => {
   >
     <UBreadcrumb :items="Routes" />
     <div class="flex items-center gap-1">
-      <UButton href="https://github.com/Mikyan0207/wuwa-optimizer/issues" target="_blank" icon="mdi:github" size="xl" variant="link" color="neutral" />
+      <UButton href="https://github.com/" target="_blank" icon="mdi:github" size="xl" variant="link" color="neutral" />
       <BuyMeACoffee />
 
       <!-- <UDropdownMenu

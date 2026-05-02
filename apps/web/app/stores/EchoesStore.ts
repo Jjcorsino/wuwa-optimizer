@@ -75,6 +75,20 @@ export const useEchoesStore = defineStore('EchoesStore', () => {
     Echoes.value.push(echo)
   }
 
+  function Upsert(echo: Echo) {
+    const index = Echoes.value.findIndex(e => e.Id === echo.Id)
+
+    if (index === -1) {
+      Echoes.value.push(echo)
+      return
+    }
+
+    Echoes.value[index] = {
+      ...Echoes.value[index],
+      ...echo,
+    } as Echo
+  }
+
   return {
     Echoes: skipHydrate(Echoes),
     GetById,
@@ -87,5 +101,6 @@ export const useEchoesStore = defineStore('EchoesStore', () => {
     UpdateWithEquipedBy,
     RemoveEcho,
     AddOrUpdate,
+    Upsert,
   }
 })

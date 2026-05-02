@@ -4,11 +4,14 @@
     "private": true,
     "scripts": {
         "build": "turbo run build",
-        "dev": "turbo run dev",
-        "lint": "turbo run lint",
-        "check-types": "turbo run check-types",
-        "clean": "rmdir /s /q node_modules"
-    },
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "check-types": "turbo run check-types",
+    "clean": "rmdir /s /q node_modules",
+    "fetch:images": "node scripts/fetch-character-images.mjs",
+    "import:character-metadata": "node scripts/import-character-metadata.mjs"
+  },
     "packageManager": "pnpm@10.14.0",
     "devDependencies": {
         "turbo": "^2.5.5"
