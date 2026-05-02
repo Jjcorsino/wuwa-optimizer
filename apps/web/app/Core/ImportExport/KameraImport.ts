@@ -58,27 +58,46 @@ export type KameraEchoesJson = Array<Record<string, KameraEchoData>>
 
 // ─── Mappings ─────────────────────────────────────────────────────────────────
 
+// Keys are derived from databaseUpdater.py → updateEchoStats() internal names,
+// combined with the "%" suffix that echoesScraper.py appends when the value ends with "%".
 const STAT_MAP: Record<string, StatType> = {
+  // Flat stats
   'hp': StatType.HP,
-  'hp%': StatType.HP_PERCENTAGE,
   'atk': StatType.ATTACK,
-  'atk%': StatType.ATTACK_PERCENTAGE,
   'def': StatType.DEF,
+  // Percentage stats (always suffixed with % in Kamera output)
+  'hp%': StatType.HP_PERCENTAGE,
+  'atk%': StatType.ATTACK_PERCENTAGE,
   'def%': StatType.DEF_PERCENTAGE,
   'cr%': StatType.CRIT_RATE,
   'cd%': StatType.CRIT_DMG,
   'er%': StatType.ENERGY_REGENERATION,
-  'healingBonus%': StatType.HEALING_BONUS,
+  'healing%': StatType.HEALING_BONUS,
   'basicAttack%': StatType.BASIC_ATTACK_DMG_AMPLIFICATION,
   'heavyAttack%': StatType.HEAVY_ATTACK_DMG_AMPLIFICATION,
-  'resonanceLiberation%': StatType.RESONANCE_LIBERATION_DMG_AMPLIFICATION,
-  'resonanceSkill%': StatType.RESONANCE_SKILL_DMG_AMPLIFICATION,
+  'liberationDmg%': StatType.RESONANCE_LIBERATION_DMG_AMPLIFICATION,
+  'skillDmg%': StatType.RESONANCE_SKILL_DMG_AMPLIFICATION,
   'aero%': StatType.AERO_DMG_BONUS,
   'electro%': StatType.ELECTRO_DMG_BONUS,
   'fusion%': StatType.FUSION_DMG_BONUS,
   'glacio%': StatType.GLACIO_DMG_BONUS,
   'havoc%': StatType.HAVOC_DMG_BONUS,
   'spectro%': StatType.SPECTRO_DMG_BONUS,
+  // Non-% fallbacks in case OCR drops the % sign
+  'cr': StatType.CRIT_RATE,
+  'cd': StatType.CRIT_DMG,
+  'er': StatType.ENERGY_REGENERATION,
+  'healing': StatType.HEALING_BONUS,
+  'basicAttack': StatType.BASIC_ATTACK_DMG_AMPLIFICATION,
+  'heavyAttack': StatType.HEAVY_ATTACK_DMG_AMPLIFICATION,
+  'liberationDmg': StatType.RESONANCE_LIBERATION_DMG_AMPLIFICATION,
+  'skillDmg': StatType.RESONANCE_SKILL_DMG_AMPLIFICATION,
+  'aero': StatType.AERO_DMG_BONUS,
+  'electro': StatType.ELECTRO_DMG_BONUS,
+  'fusion': StatType.FUSION_DMG_BONUS,
+  'glacio': StatType.GLACIO_DMG_BONUS,
+  'havoc': StatType.HAVOC_DMG_BONUS,
+  'spectro': StatType.SPECTRO_DMG_BONUS,
 }
 
 const RARITY_MAP: Record<number, Rarity> = {
